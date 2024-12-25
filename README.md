@@ -39,24 +39,23 @@
 
 ### 2. Выбор структуры данных
 
-|       | название переменной | Тип (в Java) | 
-|-------|---------------------|--------------|
-| Число | `N`                 | `int`        |
-| Число | `sum1`              | `int`        |
-| Число | `sum2`              | `int`        |
-| Число | `diff`              | `int`        |
-| Число | `middle`            | `int`        |
-| Число | `te`                | `int`        |
-| Число | `scom`              | `int`        |
-| Число | `j1`                | `int`        |
-| Число | `i1`                | `int`        |
-| Число | `sumstr`            | `int`        |
-| Число | `sumcol`            | `int`        |
-| Число | `indstr`            | `int`        |
-| Число | `indcol`            | `int`        |
-| Число | `smin`              | `int`        |
-| Число | `srar`              | `double`     |
-| Массив| `a`                 | `int`        |
+| название переменной | Тип (в Java) | 
+|---------------------|--------------|
+| `temp`              | `Product`    |
+| `product`           | `Product`    |
+| `name`              | `String`     |
+| `isPurchased`       | `boolean`    |
+| `ind`               | `boolean`    |
+| `quantity`          | `int`        |
+| `productCount`      | `int`        |
+| `count`             | `int`        |
+| `index`             | `int`        |
+| `budget`            | `double`     |
+| `rem`               | `double`     |
+| `total`             | `double`     |
+| `remcost`           | `double`     |
+| `cheap`             | `double`     |
+| `exp`               | `double`     |
 
 ### 3. Алгоритм
 
@@ -105,7 +104,7 @@
 ### 4. Программа
    
 ```java
-// Созданик класса Товар
+// Создание класса Товар
 class Product {
 
     // Создание полей в классе Товар
@@ -150,9 +149,9 @@ class Product {
 // Создание класса Список Покупок
 class ShoppingList {
     // Создание полей класса список сокупок
-    private Product[] product;
-    private int productCount;
-    private double budget;
+    Product[] product;
+    int productCount;
+    double budget;
 
     // Конструктор класса список покупок
     public ShoppingList(int CountOfProducts) {
@@ -178,7 +177,7 @@ class ShoppingList {
     }
 
     // Подсчет оставшихся в бюджете денег после покупок товаров
-    public double RemainingBudget(){
+    public double RemainingBudget() {
         double rem = budget;
         for (int i = 0; i < productCount; i++)
             if (product[i].isPurchased)
@@ -189,7 +188,7 @@ class ShoppingList {
     // Проверка возможности покупки товара по его названию
     public boolean canPurchase(String name) {
         boolean ind = false;
-        for(int i = 0; i < productCount; i++)
+        for (int i = 0; i < productCount; i++)
             if (product[i].name.equals(name) && product[i].Cost() <= RemainingBudget())
                 ind = true;
         return ind;
@@ -213,6 +212,7 @@ class ShoppingList {
         double total = 0;
         for (int i = 0; i < productCount; i++)
             total += product[i].Cost();
+        System.out.println(productCount);
         return total;
     }
 
@@ -239,10 +239,9 @@ class ShoppingList {
 
     // Функция "Купить всё"
     public void purchaseAll() {
-        double bud = budget;
         for (int i = 0; i < productCount; i++)
-            if (!product[i].isPurchased && bud >= product[i].Cost()) {
-                bud -= product[i].Cost();
+            if (!product[i].isPurchased && budget >= product[i].Cost()) {
+                budget -= product[i].Cost();
                 product[i].isPurchased = true;
             }
     }
@@ -252,8 +251,8 @@ class ShoppingList {
         Product temp;
         for (int i = 0; i < productCount - 1; i++)
             for (int j = 0; j < productCount - i - 1; j++)
-                if ((ascending && product[j].Cost() > product[j + 1].Cost()) ||
-                        (!ascending && product[j].Cost() < product[j + 1].Cost())) {
+                if ((ascending && product[j].price > product[j + 1].price) ||
+                        (!ascending && product[j].price < product[j + 1].price)) {
                     temp = product[j];
                     product[j] = product[j + 1];
                     product[j + 1] = temp;
@@ -261,13 +260,12 @@ class ShoppingList {
     }
 
     // Покупка определённого количества товаров
-    public int PurchaseCertainAmount(boolean ascending){
-        double budg = budget;
+    public int PurchaseCertainAmount(boolean ascending) {
         int count = 0;
         sortProducts(ascending);
         for (int i = 0; i < productCount; i++)
-            if (product[i].Cost() <= budg){
-                budg -= product[i].Cost();
+            if (product[i].Cost() <= budget) {
+                budget -= product[i].Cost();
                 count++;
             }
         return count;
@@ -284,8 +282,8 @@ class ShoppingList {
                 break;
             }
 
-        for(int i = 0; i < productCount; i++)
-            if (!product[i].isPurchased && product[i].price < cheap){
+        for (int i = 0; i < productCount; i++)
+            if (!product[i].isPurchased && product[i].price < cheap) {
                 cheap = product[i].price;
                 index = i;
             }
@@ -299,8 +297,8 @@ class ShoppingList {
     public void findMostExpensiveProduct() {
         double exp = -1.0;
         int index = -1;
-        for(int i = 0; i < productCount; i++)
-            if (!product[i].isPurchased && product[i].price > exp){
+        for (int i = 0; i < productCount; i++)
+            if (!product[i].isPurchased && product[i].price > exp) {
                 exp = product[i].price;
                 index = i;
             }
@@ -308,11 +306,6 @@ class ShoppingList {
             System.out.println("Все товары куплены.");
         else
             System.out.println(product[index].toString());
-    }
-
-    public void displayProducts() {
-        for (int i = 0; i < productCount; i++)
-            System.out.println(product[i]);
     }
 }
 ```
