@@ -325,10 +325,12 @@ class ShoppingList {
    **Input**:
    
    100.0
+   
    **Output**:
    
    500.0
-3. Тест canPurchase
+   
+4. Тест canPurchase
    
    **Output**:
    
