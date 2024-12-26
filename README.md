@@ -311,18 +311,27 @@ class ShoppingList {
 
 ### 5. Анализ правильности решения
 1. Тест setBudget
+   
 **Input**:
+
 400.0
+   
 **Output**:
+
 400.0
 
 2. Тест addMoney
+   
    **Input**:
+   
    100.0
    **Output**:
+   
    500.0
 3. Тест canPurchase
+   
    **Output**:
+   
    Товар 1: true
    Товар 1: true
 
