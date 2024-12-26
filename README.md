@@ -338,6 +338,10 @@ class ShoppingList {
         else
             System.out.println(product[index].toString());
     }
+    public void displayProducts(){
+        for (int i = 0; i < productCount; i++)
+            System.out.println(product[i]);
+    }
 }
 ```
 
