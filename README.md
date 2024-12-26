@@ -335,6 +335,7 @@ class ShoppingList {
    **Output**:
    
    Товар 1: true
+   
    Товар 1: true
 
 
